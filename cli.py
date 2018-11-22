@@ -1,7 +1,7 @@
 from prompt_toolkit import prompt
 from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.key_binding import KeyBindings
-from actions import status, deploy
+from actions import status, deploy, stop
 from prompt_toolkit.completion import Completer, Completion
 from setup import setup, build_dictionary
 
@@ -51,6 +51,8 @@ def main():
                 status(answer)
             elif answer.startswith('build'):
                 deploy(answer)
+            elif answer.startswith('stop'):
+                stop(answer)
             elif answer.startswith('exit'):
                 raise ValueError('Seeya :)')
             else:

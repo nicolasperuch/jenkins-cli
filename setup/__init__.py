@@ -18,7 +18,7 @@ def _get_services():
 
 
 def _get_actions():
-    return ['build', 'status']
+    return ['build', 'stop', 'status']
 
 
 def _add_element_into_dictionary(elements):
@@ -42,6 +42,7 @@ def build_dictionary(target_word):
 
 dictionary = {
     'build': _get_branches(),
+    'stop': _get_branches(),
     'status': _get_services(),
     'empty': _get_actions()
 }

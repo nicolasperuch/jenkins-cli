@@ -24,6 +24,17 @@ def deploy_job(job, env):
     print(response)
 
 
+def stop_job(job, env):
+    config = load_properties()
+    current_build = _get_current_build(job, env)
+    response = post(_build_stop_url(
+        config['url'], job,
+        env, current_build),
+        data={},
+        headers=config['headers'])
+    print(response)
+
+
 def load_jobs():
     config = load_properties()
     response = get(_build_load_url(config['url']),
@@ -49,3 +60,22 @@ def _build_deploy_url(url, job, env):
 
 def _build_load_url(url):
     return url + 'job/Plataforma/api/json?tree=jobs[name]'
+
+
+def _build_info_job(url, job, env):
+    return url + 'view/Cartoes/job/Plataforma/job/' + job + '/job/' + env + '/api/json'
+
+
+def _build_stop_url(url, job, env, build_number):
+    return url + 'view/Cartoes/job/Plataforma/job/' + job + '/job/' + env + '/' + build_number + '/stop'
+
+
+def _get_current_build(job, env):
+    config = load_properties()
+    response = post(_build_info_job(
+        config['url'], job, env),
+        data={},
+        headers=config['headers'])
+
+    current_build = response.json()['nextBuildNumber'] - 1
+    return str(current_build)
