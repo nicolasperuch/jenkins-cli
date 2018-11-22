@@ -55,8 +55,8 @@ def main():
                 raise ValueError('Seeya :)')
             else:
                 print('action n0t found')
-    except ValueError as err:
-        print(err)
+    except (KeyboardInterrupt, SystemExit, ValueError):
+        print('Bye :)')
 
 
 if __name__ == '__main__':
