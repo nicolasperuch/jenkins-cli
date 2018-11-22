@@ -43,15 +43,20 @@ def _read_input():
 
 def main():
     setup()
-    print('Welcome to Jenkins CLI')
-    while True:
-        answer = _read_input()
-        if answer.startswith('status'):
-            status(answer)
-        elif answer.startswith('build'):
-            deploy(answer)
-        else:
-            print('action n0t found')
+    try:
+        print('Welcome to Jenkins CLI')
+        while True:
+            answer = _read_input()
+            if answer.startswith('status'):
+                status(answer)
+            elif answer.startswith('build'):
+                deploy(answer)
+            elif answer.startswith('exit'):
+                raise ValueError('Seeya :)')
+            else:
+                print('action n0t found')
+    except ValueError as err:
+        print(err)
 
 
 if __name__ == '__main__':
